@@ -3,17 +3,26 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.Runtime.Loader;
 using System.Threading;
-using System.Threading.Tasks;
 using WkHtmlToPdfDotNet;
 using Frends.Community.HTMLToPdf.Definitions;
+using Microsoft.Extensions.DependencyInjection;
+using WkHtmlToPdfDotNet.Contracts;
 
 /// <summary>
 /// Main class of the Task.
 /// </summary>
 public static class ConvertHTMLToPdf
 {
+    private static readonly Lazy<IConverter> _converter = new Lazy<IConverter>(() =>
+    {
+        var serviceProvider = new ServiceCollection()
+                                    .AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()))
+                                    .BuildServiceProvider();
+
+        return serviceProvider.GetService<IConverter>();
+    });
+
     /// <summary>
     /// Create a PDF document from given HTML. The result is returned as a byte array or written into a file.
     /// If given directory does not exist, an error message is returned. If the file already exists, it will be overwritten.
@@ -63,10 +72,9 @@ public static class ConvertHTMLToPdf
             },
         };
 
-        var converter = new SynchronizedConverter(new PdfTools());
         try
         {
-            var conversionResult = converter.Convert(doc);
+            var conversionResult = _converter.Value.Convert(doc);
 
             if (outputToByteArray)
             {
@@ -79,13 +87,5 @@ public static class ConvertHTMLToPdf
         {
             return new Result(false, null, null, ex.Message);
         }
-        finally
-        {
-            if (converter != null)
-            {
-                converter.Dispose();
-            }
-        }
     }
-    
 }

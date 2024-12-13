@@ -2,9 +2,7 @@ namespace Frends.Community.HTMLToPdf.Tests;
 
 using Frends.Community.HTMLToPdf.Definitions;
 using NUnit.Framework;
-using System;
 using System.IO;
-using System.Reflection.Metadata;
 
 [TestFixture]
 internal class UnitTests
