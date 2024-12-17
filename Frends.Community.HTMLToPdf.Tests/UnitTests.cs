@@ -2,6 +2,7 @@ namespace Frends.Community.HTMLToPdf.Tests;
 
 using Frends.Community.HTMLToPdf.Definitions;
 using NUnit.Framework;
+using System;
 using System.IO;
 
 [TestFixture]
@@ -92,24 +93,15 @@ internal class UnitTests
     {
         _input.OutputPath = @"\not\exists.pdf";
 
-        var ret = ConvertHTMLToPdf.Convert(_input, _options, default);
-
-        Assert.IsFalse(ret.Success);
-        Assert.IsNull(ret.FilePath);
-        Assert.IsNull(ret.ResultBytes);
-        StringAssert.Contains($"The output directory does not exist", ret.Error);
+        var ex = Assert.Throws<ArgumentException>(() => ConvertHTMLToPdf.Convert(_input, _options, default));
+        Assert.AreEqual($"The output directory does not exist: {Path.GetDirectoryName(_input.OutputPath)}", ex.Message);
     }
 
     [Test]
     public void ThrowEmptyHtmlInputTest()
     {
         _input.HtmlContent = null;
-
-        var ret = ConvertHTMLToPdf.Convert(_input, _options, default);
-
-        Assert.IsFalse(ret.Success);
-        Assert.IsNull(ret.FilePath);
-        Assert.IsNull(ret.ResultBytes);
-        Assert.AreEqual(ret.Error, "HTML content cannot be null or empty.");
+        var ex = Assert.Throws<ArgumentException>(() => ConvertHTMLToPdf.Convert(_input, _options, default));
+        Assert.AreEqual("HTML content cannot be null or empty.", ex.Message);
     }
 }

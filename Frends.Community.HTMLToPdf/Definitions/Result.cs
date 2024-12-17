@@ -7,12 +7,11 @@ namespace Frends.Community.HTMLToPdf.Definitions;
 /// </summary>
 public class Result
 {
-    internal Result(bool success, string filePath = null, byte[] resultBytes = null, string error = null)
+    internal Result(bool success, string filePath = null, byte[] resultBytes = null)
     {
         this.Success = success;
         this.FilePath = filePath;
         this.ResultBytes = resultBytes;
-        this.Error = error;
     }
 
     /// <summary>
@@ -32,10 +31,4 @@ public class Result
     /// </summary>
     /// <example>abcdefghijkl123456789</example>
     public byte[] ResultBytes { get; private set; }
-
-    /// <summary>
-    /// Possible error message.
-    /// </summary>
-    /// <example>HTML content cannot be null or empty.</example>
-    public string Error { get; private set; }
 }

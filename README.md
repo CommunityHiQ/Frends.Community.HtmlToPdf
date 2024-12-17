@@ -20,7 +20,9 @@ https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view i
 
 ## HtmlToPdf
 
-Converts HTML to PDF.
+Converts HTML to PDF.  
+The result is returned as a byte array or written into a file. 
+If given directory does not exist, the task throws an error. If the file already exists, it will be overwritten.
 
 ### Properties
 
@@ -76,10 +78,6 @@ When contributing to this repository, please first discuss the change you wish t
 5. Submit a Pull request so that we can review your changes
 
 NOTE: Be sure to merge the latest from "upstream" before making a pull request!
-
-# Third party licenses
-
-StyleCop.Analyzer version (unmodified version 1.1.118) used to analyze code uses Apache-2.0 license, full text and source code can be found in https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/README.md
 
 # Change Log
 

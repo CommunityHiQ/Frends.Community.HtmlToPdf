@@ -20,7 +20,7 @@ public class Input
     /// <summary>
     /// Optional: if set, the output will be to the given file, otherwise the output will be byte array.
     /// </summary>
-    /// <example>C:\temp</example>
+    /// <example>C:\temp\foo.pdf"</example>
     [DisplayFormat(DataFormatString = "Text")]
     [DefaultValue(@"C:\temp\foo.pdf")]
     public string OutputPath { get; set; }

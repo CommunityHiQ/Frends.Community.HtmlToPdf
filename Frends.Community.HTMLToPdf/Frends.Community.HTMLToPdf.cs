@@ -24,19 +24,18 @@ public static class ConvertHTMLToPdf
     });
 
     /// <summary>
-    /// Create a PDF document from given HTML. The result is returned as a byte array or written into a file.
-    /// If given directory does not exist, an error message is returned. If the file already exists, it will be overwritten.
+    /// Create a PDF document from given HTML.
     /// [Documentation](https://github.com/CommunityHiQ/Frends.Community.HtmlToPdf).
     /// </summary>
     /// <param name="input">Input parameters.</param>
     /// <param name="options">Options parameters.</param>
     /// <param name="cancellationToken">Cancellation token given by Frends.</param>
-    /// <returns>Object { bool Success, string FilePath, byte[] ResultBytes, string Error }</returns>
+    /// <returns>Object { bool Success, string FilePath, byte[] ResultBytes }</returns>
     public static Result Convert([PropertyTab] Input input, [PropertyTab] Options options, CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(input.HtmlContent))
         {
-            return new Result(false, null, null, "HTML content cannot be null or empty.");
+            throw new ArgumentException("HTML content cannot be null or empty.");
         }
 
         var contentToWrite = input.HtmlContent;
@@ -53,7 +52,7 @@ public static class ConvertHTMLToPdf
             string dir = Path.GetDirectoryName(input.OutputPath);
             if (!Directory.Exists(dir))
             {
-                return new Result(false, null, null, $"The output directory does not exist: {dir}");
+                throw new ArgumentException($"The output directory does not exist: {dir}");
             }
 
             settings.Out = input.OutputPath;
@@ -85,7 +84,7 @@ public static class ConvertHTMLToPdf
         }
         catch (Exception ex)
         {
-            return new Result(false, null, null, ex.Message);
+            throw new Exception(ex.Message);
         }
     }
 }
