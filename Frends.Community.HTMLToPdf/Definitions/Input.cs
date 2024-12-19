@@ -18,11 +18,19 @@ public class Input
     public string HtmlContent { get; set; }
 
     /// <summary>
-    /// Optional: if set, the output will be to the given file, otherwise the output will be byte array.
+    /// Specifies the type of output.
+    /// </summary>
+    /// <example>FilePath</example>
+    [DefaultValue(OutputType.Bytes)]
+    public OutputType OutputType { get; set; }
+
+    /// <summary>
+    /// Output file path.
     /// </summary>
     /// <example>C:\temp\foo.pdf"</example>
     [DisplayFormat(DataFormatString = "Text")]
     [DefaultValue(@"C:\temp\foo.pdf")]
+    [UIHint(nameof(OutputType), "", OutputType.File)]
     public string OutputPath { get; set; }
 
 }

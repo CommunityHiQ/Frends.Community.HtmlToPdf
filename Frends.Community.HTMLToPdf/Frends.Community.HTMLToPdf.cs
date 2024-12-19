@@ -84,7 +84,7 @@ public static class ConvertHTMLToPdf
         }
         catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            throw new InvalidOperationException("Error during document conversion.", ex);
         }
     }
 }

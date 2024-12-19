@@ -24,12 +24,13 @@ Converts HTML to PDF.
 The result is returned as a byte array or written into a file. 
 If given directory does not exist, the task throws an error. If the file already exists, it will be overwritten.
 
-### Properties
+### Input
 
 | Property | Type | Description | Example |
 | -------- | -------- | -------- | -------- |
 | HtmlContent | `string` | The input HTML to be converted | `<html>content</html>` |
-| OutputPath | `string` | Optional: if set, the output will be to the given file, otherwise the output will be byte array. | `C:\temp\foo.pdf` |
+| OutputType | `OutputType` | Defines the output type as either file or byte array.  | `File` |
+| OutputPath | `string` | If set, the output will be to the given filepath. | `C:\temp\foo.pdf` |
 
 ### Options
 
@@ -48,7 +49,6 @@ A result object with parameters.
 | Success | `bool` | Indicates if the operation was successful. | `true` |
 | FilePath | `string` | Path to the created file, if path given as input. | `C:\tmp\example_file.pdf` |
 | ResultBytes | `byte[]` | Result as byte[], if path not given as input. | `abcdefghijkl123456789` |
-| Error | `string` | Possible error message. | `HTML content cannot be null or empty.` |
 
 # Building
 
@@ -78,6 +78,9 @@ When contributing to this repository, please first discuss the change you wish t
 5. Submit a Pull request so that we can review your changes
 
 NOTE: Be sure to merge the latest from "upstream" before making a pull request!
+
+# Third party licenses
+This task uses an unmodified version of the WkHtmlToPdf-DotNet library licensed under LGPL 3.0 as a dependency, and it is automatically managed via NuGet when building this project. For more details, including instructions on manual setup of the library, visit https://github.com/HakanL/WkHtmlToPdf-DotNet. A copy of the LGPL 3.0 license is included in this repository.
 
 # Change Log
 
